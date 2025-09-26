@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="telegram-calendar",
-    version="0.1.0",
+    version="0.2.0",
     author="S-i1-V",
     author_email="vanosaprikin@gmail.com",
     description="Telegram calendar builder library",

@@ -94,7 +94,7 @@ def build_calendar(year: int, month: int, icon_dates: DateIconMap = None) -> Inl
                 date_str = f"{year:04d}-{month:02d}-{day:02d}"
                 icon = icon_dates.get(date_str, "")
                 icon_display = icon if icon else " "
-                text = f"{day:>2} {icon_display}"
+                text = icon if icon else f"{day:>2}"
 
                 row.append(
                     InlineKeyboardButton(

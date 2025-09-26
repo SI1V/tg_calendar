@@ -1,6 +1,6 @@
 import calendar
 
-
+#For english month names
 # def month_name(month: int) -> str:
 #     return calendar.month_name[month]
 
