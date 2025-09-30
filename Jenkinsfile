@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BOT_TOKEN = credentials('telegram_calendar_token')
+        BOT_TOKEN = credentials('BOT_TOKEN')
     }
 
     stages {
