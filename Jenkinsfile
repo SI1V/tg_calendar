@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BOT_TOKEN = credentials('BOT_TOKEN')
+        BOT_TOKEN = credentials('telegram_calendar_token')
     }
 
     stages {
@@ -37,7 +37,7 @@ pipeline {
                     sh "docker stop ${containerName} || true"
                     sh "docker rm ${containerName} || true"
 
-                    sh "docker run -d --name ${containerName} -e BOT_TOKEN=${env.telegram_calendar_token} ${imageName}"
+                    sh "docker run -d --name ${containerName} -e BOT_TOKEN=${env.BOT_TOKEN} ${imageName}"
 
                     echo "Bot ${containerName} has been started with the new version."
                 }
