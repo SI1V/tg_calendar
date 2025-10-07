@@ -37,7 +37,7 @@ pipeline {
                     sh "docker stop ${containerName} || true"
                     sh "docker rm ${containerName} || true"
 
-                    sh "docker run -d --name ${containerName} -e BOT_TOKEN=${env.BOT_TOKEN} ${imageName}"
+                    sh "docker run -d --name ${containerName} -e BOT_TOKEN=${env.BOT_TOKEN} ${imageName} --restart unless-stopped"
 
                     echo "Bot ${containerName} has been started with the new version."
                 }
