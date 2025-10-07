@@ -37,7 +37,11 @@ pipeline {
                     sh "docker stop ${containerName} || true"
                     sh "docker rm ${containerName} || true"
 
-                    sh "docker run -d --name ${containerName} -e BOT_TOKEN=${env.BOT_TOKEN} ${imageName} --restart unless-stopped"
+                    sh """
+                    docker run -d --name tg_calendar_bot \\
+                    --restart unless-stopped \\
+                    -e BOT_TOKEN=${BOT_TOKEN} tg_calendar_bot:latest
+                    """
 
                     echo "Bot ${containerName} has been started with the new version."
                 }
