@@ -13,6 +13,14 @@ def month_name(month: int) -> str:
     return months_ru[month - 1]
 
 
+def short_month_name(month: int) -> str:
+    short_months_ru = [
+        "Янв.", "Фев.", "Мар.", "Апр.", "Май", "Июн.",
+        "Июл.", "Авг.", "Сен.", "Окт.", "Ноя.", "Дек."
+    ]
+    return short_months_ru[month - 1]
+
+
 def get_month_days(year: int, month: int):
     return calendar.monthcalendar(year, month)
 

@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from .callback import CalendarCallback
-from .utils import get_month_days, month_name, DAYS
+from .utils import get_month_days, month_name, DAYS, short_month_name
 from .calendar_types import DateIconMap
 from datetime import date
 
@@ -94,7 +94,7 @@ def build_calendar(year: int, month: int, icon_dates: DateIconMap = None) -> Inl
     next_month = month + 1 if month < 12 else 1
     next_year = year + 1 if month == 12 else year
 
-    header_text = f"{month_name(month)} {year}"
+    header_text = f"{short_month_name(month)} {year}"
 
     kb.append([
         InlineKeyboardButton(text="<<", callback_data=CalendarCallback(action="select_month", year=prev_year,
