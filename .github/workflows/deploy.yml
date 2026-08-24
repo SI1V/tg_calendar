@@ -1,0 +1,43 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [master]
+
+# Каждая строка: имя|путь к Dockerfile|имя образа в registry|deployment в кластере
+env:
+  APPS: |-
+    bot|Dockerfile|tg-calendar|tg-calendar
+  NS: bots
+
+jobs:
+  build-deploy:
+    runs-on: [self-hosted, vdsina]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build & push all images
+        run: |
+          BUILD=$(date +%Y%m%d-%H%M%S)
+          echo "BUILD=$BUILD" >> "$GITHUB_ENV"
+          echo "$APPS" | while IFS='|' read -r name dockerfile app dep; do
+            [ -z "$name" ] && continue
+            IMAGE=10.43.169.20:5000/$app
+            echo "==> Сборка $app из $dockerfile"
+            docker build -f "$dockerfile" -t $IMAGE:$BUILD -t $IMAGE:latest .
+            docker push $IMAGE:$BUILD
+            docker push $IMAGE:latest
+          done
+
+      - name: Deploy all with rollback
+        run: |
+          set -e
+          echo "$APPS" | while IFS='|' read -r name dockerfile app dep; do
+            [ -z "$name" ] && continue
+            /opt/ci/deploy.sh "$app" "$dep" "${{ env.BUILD }}"
+          done
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "!! Сборка или деплой упали — смотри логи выше"
