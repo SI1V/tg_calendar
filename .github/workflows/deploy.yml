@@ -4,11 +4,6 @@ on:
   push:
     branches: [master]
 
-# Собираем образ и пушим в registry.
-# ДЕПЛОЙ НА КЛАСТЕР БОЛЬШЕ НЕ ЗДЕСЬ: единая точка — репа si1v-lab/k8s-cluster.
-# После сборки обнови tag образа в k8s-cluster/apps/tg-calendar/bot.yaml
-#   и запушь k8s-cluster — тогда под обновится на новую версию.
-
 env:
   IMAGE_NAME: tg-calendar
 
